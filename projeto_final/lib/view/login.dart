@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/component/cria_textfield.dart';
+import 'package:projeto_final/controller/usuario_controller.dart';
+import 'package:projeto_final/model/usuario.dart';
 import 'package:projeto_final/util/hexcolor.dart';
 import 'package:projeto_final/view/cadastro.dart';
 import 'package:projeto_final/view/memoriza%C3%A7%C3%A3o.dart';
@@ -13,10 +15,26 @@ class _LoginState extends State<Login> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _senhaController = TextEditingController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  _validar(BuildContext context) {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => Memorizacao()),
-        (route) => false);
+  UsuarioController _userController = UsuarioController();
+
+  _validar(BuildContext context) async {
+    Usuario user = Usuario(_emailController.text, _senhaController.text);
+    if (await _userController.validateUser(user)) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Memorizacao(0)),
+          (route) => false);
+    } else {
+      _displaySnackBar(context,
+          "Email ou senha não combinam, favor verificar ou se cadastrar");
+    }
+  }
+
+  _displaySnackBar(BuildContext context, String mensagem) {
+    final snackBar = SnackBar(
+      content: Text(mensagem),
+      backgroundColor: Colors.red[900],
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
   @override

@@ -19,7 +19,8 @@ class UsuarioDao {
         .collection(COLECAO)
         .where('email', isEqualTo: usuario.email)
         .get();
-    print(usuarios.docs[0].data());
-    return usuarios.docs[0].data()['senha'] == usuario.senha;
+    return usuarios.docs.isNotEmpty
+        ? usuarios.docs[0].data()['senha'] == usuario.senha
+        : false;
   }
 }

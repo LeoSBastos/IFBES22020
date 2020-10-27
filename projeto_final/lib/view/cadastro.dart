@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/component/cria_textfield.dart';
+import 'package:projeto_final/controller/usuario_controller.dart';
+import 'package:projeto_final/model/usuario.dart';
 import 'package:projeto_final/util/hexcolor.dart';
 import 'package:projeto_final/view/login.dart';
 import 'package:projeto_final/view/memoriza%C3%A7%C3%A3o.dart';
@@ -14,12 +16,15 @@ class _CadastroState extends State<Cadastro> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _senhaController = TextEditingController();
   TextEditingController _confirmarSenhaController = TextEditingController();
-
+  UsuarioController _userController = UsuarioController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   _validar(BuildContext context) {
+    Usuario user = Usuario(_emailController.text, _senhaController.text,
+        nome: _nomeController.text);
+    _userController.salvar(user);
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => Memorizacao()),
+        MaterialPageRoute(builder: (context) => Memorizacao(0)),
         (route) => false);
   }
 
