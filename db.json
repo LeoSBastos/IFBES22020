@@ -1,0 +1,17 @@
+{
+    "kanjis": [
+        {
+            "id": "U5La05Yzf47t0HF5Tx4d",
+            "kanji": "伯剌西爾",
+            "resposta": "Brasil"
+        }
+    ],
+    "usuario": [
+        {
+            "id": "c56AbfkWz9X4qvzyMEWZ",
+            "email": "teste@teste.com",
+            "nome": "Leo",
+            "senha": "123"
+        }
+    ]
+}
